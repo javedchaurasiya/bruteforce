@@ -6,7 +6,7 @@ const cors = require("cors");
 require("./config/db");
 const User = require("./models/user");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 
 const corsoptions = {
   origin: process.env.ALLOWED_CLIENTS.split(","),
@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 app.use("/signup", require("./Routes/signUp"));
 app.use("/login", require("./Routes/login"));
 app.use("/verifyToken", require("./Routes/verifyToken"));
+app.use("/checkUsername", require("./Routes/checkUsername"));
 
 //checking mongodb : inserting dummy data
 app.post("/checkdb", async (req, res) => {
