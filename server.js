@@ -25,6 +25,7 @@ app.use("/signup", require("./Routes/signUp"));
 app.use("/login", require("./Routes/login"));
 app.use("/verifyToken", require("./Routes/verifyToken"));
 app.use("/checkUsername", require("./Routes/checkUsername"));
+app.use("/compile", require("./Routes/compile"));
 
 //checking mongodb : inserting dummy data
 app.post("/checkdb", async (req, res) => {
