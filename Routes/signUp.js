@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
         token,
         user_name: response.user_name,
         general_name: response.general_name,
+        imageURL: response.imageURL,
       });
     });
 

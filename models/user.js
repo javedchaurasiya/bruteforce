@@ -1,39 +1,73 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const mySchema = new mongoose.Schema({
-    user_name:{
-        type:String,
-        required:true,
-        unique:true
+const mySchema = new mongoose.Schema(
+  {
+    user_name: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    mail:{
-        type:String,
-        required:true,
-        unique:true
+    mail: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    password:{
-        type:String,
-        required:true,
+    password: {
+      type: String,
+      required: true,
     },
-    general_name:{
-        type:String,
-        required:true
+    imageURL: {
+      type: String,
+      default:
+        "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png",
     },
-    bio:{
-        type:String,
-        required:false
+    general_name: {
+      type: String,
+      required: true,
     },
-    submission:[String],
-    affiliation:{
-        type:String
+    bio: {
+      type: String,
+      required: false,
     },
-    city:{
-        type:String
+    submission: [
+      {
+        submission_id: { type: String },
+        problem_name: { type: String },
+        level: { type: String },
+        language: { type: String },
+        status:{type:String},
+        timeline: { type: Number, default: Date.now() },
+      },
+    ],
+    school: {
+      type: String,
+      default: "Your School",
     },
-    rating:{
-        type:Number
+    location: {
+      type: String,
+      default: "India",
     },
-    post:[String]
-},{timestamps:true})
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    socials: {
+      linkedin: {
+        type: String,
+        default: "Your Linkedin",
+      },
+      github: {
+        type: String,
+        default: "Your github",
+      },
+      twitter: {
+        type: String,
+        default: "Your twitter",
+      },
+    },
+    post: [String],
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('User',mySchema)
+module.exports = mongoose.model("User", mySchema);

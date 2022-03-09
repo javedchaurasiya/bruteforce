@@ -26,6 +26,10 @@ app.use("/login", require("./Routes/login"));
 app.use("/verifyToken", require("./Routes/verifyToken"));
 app.use("/checkUsername", require("./Routes/checkUsername"));
 app.use("/compile", require("./Routes/compile"));
+app.use("/profile", require("./Routes/profile"));
+app.use("/updateProfile", require("./Routes/updateProfile"));
+app.use("/imageUpload", require("./Routes/imageUpload.js"));
+
 
 //checking mongodb : inserting dummy data
 app.post("/checkdb", async (req, res) => {

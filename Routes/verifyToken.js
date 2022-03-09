@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
       return res.status(200).json({
         user_name: response.user_name,
         general_name: response.general_name,
+        imageURL:response.imageURL,
       });
     });
   } catch (error) {
