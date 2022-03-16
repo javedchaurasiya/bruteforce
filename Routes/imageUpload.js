@@ -24,7 +24,7 @@ const s3 = new AWS.S3();
 // abstracts function to upload a file returning a promise
 // NOTE: if you are using TypeScript the typed function signature will be
 // const uploadFile = (buffer: S3.Body, name: string, type: { ext: string; mime: string })
-const uploadFile = (buffer, name,ext) => {
+const uploadFile = (buffer, name, ext) => {
   const params = {
     ACL: "public-read",
     Body: buffer,
@@ -34,8 +34,13 @@ const uploadFile = (buffer, name,ext) => {
   return s3.upload(params).promise();
 };
 
-router.post("/", (request, response) => {
-    console.log(response.body);
+const middle = (request,response,next)=>{
+  console.log(request.headers);
+  next();
+}
+
+router.post("/",middle, (request, response) => {
+  // console.log(request.headers.authorization);
   const form = new multiparty.Form();
   form.parse(request, async (error, fields, files) => {
     if (error) {
@@ -43,16 +48,15 @@ router.post("/", (request, response) => {
     }
     try {
       const path = files.file[0].path;
-      const ext=path.split('.').slice(-1)[0]
+      const ext = path.split(".").slice(-1)[0];
       console.log(ext);
       const buffer = fs.readFileSync(path);
-    //   const type = await FileType.fromBuffer(buffer);
+      //   const type = await FileType.fromBuffer(buffer);
       const fileName = `bucketFolder/${Date.now().toString()}`;
-      const data = await uploadFile(buffer, fileName,ext);
+      const data = await uploadFile(buffer, fileName, ext);
       console.log(data);
       return response.status(200).json({ data });
     } catch (err) {
-
       return response.status(500).json({ err });
     }
   });

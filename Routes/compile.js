@@ -1,8 +1,21 @@
 const router = require("express").Router();
 const axios = require("axios");
-const request = require("request");
 
 require("dotenv").config();
+
+function LanguageId(lang) {
+  if (lang == "python" || lang == "python3") return 5;
+  else if (lang == "Java" || lang == "java") return 4;
+  else if (
+    lang == "C++ (gcc)" ||
+    lang == "C++" ||
+    lang == "c++" ||
+    lang == "cpp17"
+  )
+    return 7;
+  else if (lang == "c" || lang == "C") return 6;
+  return 1;
+}
 
 router.post("/", async (req, res) => {
   try {
@@ -23,7 +36,29 @@ router.post("/", async (req, res) => {
       payload
     );
     console.log(response.data);
-    return res.status(200).json({ output: response.data.output });
+    if (response.data.memory === null) {
+      console.log("returning");
+      return res.status(200).json({ output: response.data.output });
+    } else {
+      const Data = {
+        LanguageChoice: LanguageId(language),
+        Input: input,
+        Program: src_code,
+      };
+      const finalResponse = await axios.post(
+        "https://code-compiler.p.rapidapi.com/v2",
+        Data,
+        {
+          headers: {
+            "content-type": "application/json",
+            "x-rapidapi-host": "code-compiler.p.rapidapi.com",
+            "x-rapidapi-key":process.env.CODE_COMPILER_API
+              ,
+          },
+        }
+      );
+      return res.status(200).json({ output: finalResponse.data.Result });
+    }
   } catch (error) {
     return res.status(400).json({ error: error });
   }

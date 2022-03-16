@@ -33,10 +33,11 @@ const mySchema = new mongoose.Schema(
       {
         submission_id: { type: String },
         problem_name: { type: String },
+        problem_id: { type: String },
         level: { type: String },
         language: { type: String },
         status:{type:String},
-        timeline: { type: Number, default: Date.now() },
+        timeline: { type: Number, default: Date.now(), required:true },
       },
     ],
     school: {
@@ -66,6 +67,7 @@ const mySchema = new mongoose.Schema(
       },
     },
     post: [String],
+    likes:[String],
   },
   { timestamps: true }
 );

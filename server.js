@@ -29,6 +29,9 @@ app.use("/compile", require("./Routes/compile"));
 app.use("/profile", require("./Routes/profile"));
 app.use("/updateProfile", require("./Routes/updateProfile"));
 app.use("/imageUpload", require("./Routes/imageUpload.js"));
+app.use("/addProblem", require("./Routes/addProblem.js"));
+app.use("/getProblem", require("./Routes/getProblem.js"));
+app.use("/submitCode", require("./Routes/submitCode.js"));
 
 
 //checking mongodb : inserting dummy data

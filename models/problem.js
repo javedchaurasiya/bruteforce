@@ -1,44 +1,49 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const mySchema = new mongoose.Schema({
-    problem_id:{
-        type:String,
-        required:true,
-        unique:true
+const mySchema = new mongoose.Schema(
+  {
+    problem_id: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    problem_title:{
-        type:String,
-        required:true
+    title: {
+      type: String,
+      required: true,
     },
-    problem_desc:{
-        type:String,
-        required:true
+    description: {
+      type: String,
+      required: true,
     },
-    difficulty:{
-        type:String,
-        required:true
+    level: {
+      type: String,
+      required: true,
     },
-    constraints:[String],
-    example_cases:[
-        {
-            input:{
-                type:String,
-                required:true
-            },
-            output:{
-                type:String,
-                required:true
-            },
-            explanation:{
-                type:String
-            }
-        }
-    ],
-    test_cases:{
-        type:String,
-        required:true
+    constraints: [String],
+    example_input: {
+      type: String,
+      required: true,
     },
-    topic_tags:[String]
-},{timestamps:true})
+    example_output: {
+      type: String,
+      required: true,
+    },
+    test_input: {
+      type: String,
+      required: true,
+    },
+    test_output: {
+      type: String,
+      required: true,
+    },
+    tags: [String],
+    likes: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Problem',mySchema)
+module.exports = mongoose.model("Problem", mySchema);
