@@ -32,6 +32,7 @@ app.use("/imageUpload", require("./Routes/imageUpload.js"));
 app.use("/addProblem", require("./Routes/addProblem.js"));
 app.use("/getProblem", require("./Routes/getProblem.js"));
 app.use("/submitCode", require("./Routes/submitCode.js"));
+app.use("/search", require("./Routes/search.js"));
 
 
 //checking mongodb : inserting dummy data
