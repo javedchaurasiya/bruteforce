@@ -33,7 +33,7 @@ app.use("/addProblem", require("./Routes/addProblem.js"));
 app.use("/getProblem", require("./Routes/getProblem.js"));
 app.use("/submitCode", require("./Routes/submitCode.js"));
 app.use("/search", require("./Routes/search.js"));
-
+app.use("/getProblemSet", require("./Routes/getProblemSet.js"));
 
 //checking mongodb : inserting dummy data
 app.post("/checkdb", async (req, res) => {
@@ -49,7 +49,8 @@ app.post("/checkdb", async (req, res) => {
     });
 
     const response = await user.save();
-    console.log(response);
+    // console.log(response);
+    
 
     return res.status(200).json({ message: "successfully inserted data" });
   } catch (error) {
