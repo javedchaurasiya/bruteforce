@@ -27,6 +27,7 @@ router.post("/", async (req, res) => {
       Input: problem.test_input,
       Program: src_code,
     };
+    console.log(Data);
     const finalResponse = await axios.post(
       "https://code-compiler.p.rapidapi.com/v2",
       Data,
@@ -38,7 +39,8 @@ router.post("/", async (req, res) => {
         },
       }
     );
-    // console.log(finalResponse);
+    console.log(finalResponse);
+    console.log(problem);
     // console.log("Separate");
     var output = {
       submission_id: "sub" + Date.now().toString(),
@@ -51,7 +53,7 @@ router.post("/", async (req, res) => {
     };
     if (finalResponse.data.Errors) output.status = "compilation error";
     else {
-      if (finalResponse.data.Result === problem.test_output)
+      if (finalResponse.data.Result == problem.test_output)
         output.status = "accepted";
       else output.status = "wrong answer";
     }

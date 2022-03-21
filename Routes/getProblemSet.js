@@ -4,8 +4,10 @@ const problem = require("../models/problem");
 router.post("/", async (req, res) => {
   try {
     const { level, tags } = req.body;
-    console.log(level);
-    const response = await problem.find({ level: level, tags: { $in: tags } });
+    // console.log(level);
+    var response;
+    if(level!='all')response = await problem.find({ level: level, tags: { $in: tags } });
+    else response = await problem.find({tags: { $in: tags } });
     // console.log(response);
     var result = [];
     response.map((x) => {
@@ -16,7 +18,7 @@ router.post("/", async (req, res) => {
         likes: x.likes,
       });
     });
-    console.log(result);
+    // console.log(result);
     return res.status(200).json({ result });
   } catch (error) {
     console.log(error);

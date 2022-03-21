@@ -8,6 +8,8 @@ router.post("/", async (req, res) => {
     // console.log(problem_id);
     const response = await problem.findOne({ problem_id });
     const response1 = await user.findOne({ user_name });
+    var liked=false;
+    liked=response1.likes.includes(problem_id)
     // console.log(response1);
     var subArray = [];
     response1.submission.map((sub) => {
@@ -16,7 +18,7 @@ router.post("/", async (req, res) => {
     console.log(subArray);
     // console.log(response);
     if (!response) return res.status(404).json({ error: "Not Found" });
-    else return res.status(200).json({ problem: response, submissions:subArray });
+    else return res.status(200).json({ problem: response, submissions:subArray,liked });
   } catch (error) {
     console.log(error);
     return res.status(404).json({ error });

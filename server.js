@@ -34,6 +34,8 @@ app.use("/getProblem", require("./Routes/getProblem.js"));
 app.use("/submitCode", require("./Routes/submitCode.js"));
 app.use("/search", require("./Routes/search.js"));
 app.use("/getProblemSet", require("./Routes/getProblemSet.js"));
+app.use("/getSubDetails", require("./Routes/getSubDetails.js"));
+app.use("/like", require("./Routes/like.js"));
 
 //checking mongodb : inserting dummy data
 app.post("/checkdb", async (req, res) => {

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const user = require("../models/user");
-const jsTimeDiff=require('js-time-diff')
+const problem = require("../models/problem");
+const jsTimeDiff = require("js-time-diff");
 
 router.post("/", async (req, res) => {
   try {
@@ -23,13 +24,17 @@ router.post("/", async (req, res) => {
     easy = medium = hard = 0;
 
     var submissionArray = [];
+    var st = new Set();
 
     response.submission.map((sub) => {
-      if (sub.level === "easy") easy++;
-      else if (sub.level === "medium") medium++;
-      else if (sub.level === "hard") hard++;
+      if (!st.has(sub.problem_id)) {
+        if (sub.level === "easy") easy++;
+        else if (sub.level === "medium") medium++;
+        else if (sub.level === "hard") hard++;
+      }
+      st.add(sub.problem_id)
 
-      if (sub.language === "cpp") cpp++;
+      if (sub.language === "cpp" || sub.language === "c_cpp") cpp++;
       else if (sub.language === "java") java++;
       else if (sub.language === "python") python++;
 
@@ -42,10 +47,17 @@ router.post("/", async (req, res) => {
       }
     });
 
-    const easyProblems = 40;
-    const mediumProblems = 40;
-    const hardProblems = 20;
-    const totalProblems = 100;
+    var easyProblems = 0,
+      mediumProblems = 0,
+      hardProblems = 0,
+      totalProblems;
+    const prob_response = await problem.find();
+    totalProblems = prob_response.length;
+    prob_response.map((prob) => {
+      if (prob.level == "easy") easyProblems++;
+      else if (prob.level == "medium") mediumProblems++;
+      else hardProblems++;
+    });
 
     const otherData = {
       submissionStats: {
@@ -60,14 +72,13 @@ router.post("/", async (req, res) => {
         medium: parseInt((medium * 100) / mediumProblems),
         hard: parseInt((hard * 100) / hardProblems),
       },
-      recentAC:submissionArray,
+      recentAC: submissionArray,
     };
 
+    // console.log(profileData);
+    // console.log(otherData);
 
-    console.log(profileData);
-    console.log(otherData);
-
-    return res.status(200).json({profileData,otherData});
+    return res.status(200).json({ profileData, otherData });
   } catch (error) {
     console.log("Error Happened");
     return res.status(404).json({ error });
