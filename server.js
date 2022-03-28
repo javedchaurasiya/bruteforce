@@ -37,6 +37,7 @@ app.use("/getProblemSet", require("./Routes/getProblemSet.js"));
 app.use("/getSubDetails", require("./Routes/getSubDetails.js"));
 app.use("/like", require("./Routes/like.js"));
 app.use("/homePage", require("./Routes/homePage.js"));
+app.use("/mySubmissions", require("./Routes/mySubmissions.js"));
 
 
 //checking mongodb : inserting dummy data

@@ -77,7 +77,7 @@ router.post("/", async (req, res) => {
       { $push: { submission: output } }
     );
     // console.log(userResponse);
-    return res.status(200).json({ id: output.submission_id ,
+    return res.status(200).json({ submission_id: output.submission_id ,
     status:output.status,
     timeline:output.timeline,
     language:output.language,
